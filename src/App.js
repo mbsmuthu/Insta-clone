@@ -4,6 +4,8 @@ import LoginPage from "./LoginPage";
 import Post from "./Post";
 import Navbar from "./Navbar";
 import Modal from "./Modal";
+import {Routes, Route} from "react-router-dom";
+import Mainpage from "./Mainpage";
 
 class App extends Component {
   constructor(props) {
@@ -14,9 +16,14 @@ class App extends Component {
     return (
       <>
         <div className="App">
-          <LoginPage />
+          <Routes>
+            <Route path="/" element={<LoginPage />}></Route>
+            <Route path="/mainpage" element={<Mainpage />}></Route>
+            
+          </Routes>
+          {/* <LoginPage />
           <Navbar />
-          <Modal />
+          <Modal /> */}
         </div>
       </>
     );

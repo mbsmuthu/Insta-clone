@@ -76,7 +76,7 @@ export class Modal extends Component {
               />
             );
           })}
-        <button onClick={this.handleAddPostClick}>Add post</button>
+        <button onClick={this.handleAddPostClick} className="navbar-addfile-btn">Add post</button>
 
         {this.state.showModal && (
           <div className="modal">
@@ -99,7 +99,7 @@ export class Modal extends Component {
                 placeholder="Enter caption"
               ></input>
 
-              <button onClick={this.handlePost}>Post</button>
+              <button onClick={this.handlePost} className="navbar-addfile-btn">Post</button>
             </div>
           </div>
         )}
