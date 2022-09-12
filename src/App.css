@@ -272,3 +272,12 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+.icon-container{
+  display: flex;
+  gap:1rem;
+}
+
+.i-bookmark{
+  margin-left: auto;
+}
