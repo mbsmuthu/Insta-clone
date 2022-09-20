@@ -26,7 +26,7 @@
 }
 
 .navbar-logo{
-  width:10%;
+  width:15%;
   
   padding:2rem;
   
@@ -44,10 +44,12 @@
 
 .navbar-logout-btn{
   padding:.5rem 1rem;
+  margin-right: 2rem;
 }
 .navbar-logout-btn:hover{
   color:white;
   background: #000;
+  cursor: pointer;
 }
 .navbar-addfile-btn{
   padding:.5rem;
@@ -142,6 +144,7 @@
   
   display: flex;
   align-items: center;
+  gap:1rem;
 }
 
 
@@ -196,11 +199,13 @@
   border:1px solid lightseagreen;
   border-radius: 1rem;
   width:80%;
+  word-wrap: break-word;
  }
 
  .post-footer-message{
   display: flex;
   gap:1rem;
+
   
  }
 
@@ -252,7 +257,7 @@
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 50%;
 }
 
 .modal-comment-box{
@@ -280,4 +285,27 @@
 
 .i-bookmark{
   margin-left: auto;
+}
+i:hover{
+  border:1px solid lightgray;
+  border-radius:50%;
+  padding:.3rem;
+}
+
+.btn-deletePost{
+  color:red;
+  padding:.5rem;
+  border-radius: 1rem;
+  border:1px solid red;
+}
+
+.btn-deletePost:hover{
+  background: red;
+  color:white;
+  cursor: pointer;
+}
+
+.comments-section{
+  height: 90px;
+  overflow:scroll;
 }

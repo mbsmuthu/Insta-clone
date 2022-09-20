@@ -1,29 +1,52 @@
 import React, { Component } from "react";
 import "./App.css";
 import LoginPage from "./LoginPage";
-import Post from "./Post";
-import Navbar from "./Navbar";
-import Modal from "./Modal";
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route, Navigate} from "react-router-dom";
 import Mainpage from "./Mainpage";
 
 class App extends Component {
   constructor(props) {
     super(props);
-  }
-  render() {
+    this.state = {
+      isLoggedIn: false,
     
+      username:null
+      
+    };
+  }
+
+ 
+
+    setLoginStatus= (a) => {
+      // console.log("Before setstate:", this.state.isLoggedIn)
+      this.setState({isLoggedIn:true, username:a})
+      // console.log(("After setState:", this.state.isLoggedIn))
+      
+    }
+
+    setLogoutStatus = () => {
+      this.setState({isLoggedIn:false});
+    }
+  render() {
+    console.log(this.state.isLoggedIn)
     return (
       <>
         <div className="App">
           <Routes>
-            <Route path="/" element={<LoginPage />}></Route>
-            <Route path="/mainpage" element={<Mainpage />}></Route>
+
+            <Route path="/" element={<LoginPage isLogin={this.state.isLoggedIn} setLogin={this.setLoginStatus}/>}></Route>
+            
+              {this.state.isLoggedIn && <Route path="/mainpage" element={<Mainpage setLogout={this.setLogoutStatus} username={this.state.username}/>}></Route>
+            }
+            
+            <Route
+        path="*"
+        element={<Navigate to="/" replace />}
+    />
+            
             
           </Routes>
-          {/* <LoginPage />
-          <Navbar />
-          <Modal /> */}
+          
         </div>
       </>
     );
