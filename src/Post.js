@@ -81,7 +81,6 @@ export class Post extends Component {
   };
 
   handleDeleteComment = (i) => {
-   
     console.log("firstdel", i);
     let newC = this.state.commentArray.filter((comment, index) => i !== index);
     console.log(newC);
@@ -90,18 +89,55 @@ export class Post extends Component {
     this.setState({ commentArray: newC });
   };
 
-  handleEdit = (e,i) => {
-    console.log(e.target.innerText)
-    e.target.innerText=this.state.contentEditable?"Edit":"Post";
-    console.log(e.target.previousSibling.previousSibling.contentEditable);
-    // this.editRef.current.focus();
+  handleEdit = (e, i) => {
+    console.log(e.currentTarget.disabled);
+    console.log(e.currentTarget.nextSibling.innerText);
+    e.currentTarget.isEnabled="false";
+    e.currentTarget.nextSibling.isEnabled = "true";
     // console.log(this.state.commentArray);
-    // console.log(this.editRef);
+    const updatedArray = [...this.state.commentArray];
+    // updatedArray[i] = '';
+    // this.setState({ commentArray: updatedArray});
+    // this.editRef.current.focus();
+
+    // this.setState({contentEditable:!this.state.contentEditable});
+
+    // this.commentRef.current.focus();
+    // this.commentRef.current.value=updatedArray[i];
+
+    // console.log(this.editRef.current.isContentEditable)
+    // this.editRef.current.isContentEditable=true;
+    console.log(updatedArray[i]);
+
+    // console.log(e.target)
+    // this.setState({ contentEditable: !this.state.contentEditable });
+    // if(e.target.previousSibling.previousSibling.contentEditable==="false"){
+    //   e.target.previousSibling.previousSibling.contentEditable="true";
+    //   e.target.innerText="Post";
+    // }else{
+    //   e.target.previousSibling.previousSibling.contentEditable="false";
+    //   e.target.innerText="Edit";
+    // }
+    console.log(i);
+    this.commentRef.current.focus();
+    this.commentRef.current.value = `${updatedArray[i]}`;
+    // updatedArray[i]="";
+
+    // this.setState({commentArray:updatedArray});
+
+    // this.setState({})
+    // console.log(this.state.commentArray.map((comment, index)=>{
+    //   return comment;
+    // }))
+
+    // e.target.innerText="Post":"Edit";
+
+    // this.editRef.current.contentEditable=true;
     // console.log("edit");
-// console.log(i)
-// this.state.commentArray[i].
+    // console.log(i)
+    // this.state.commentArray[i].
     // this.state.commentArray.map((comment, index)=>comment[i])
-    this.setState({ contentEditable: !this.state.contentEditable });
+    // console.log(e.target.previousSibling.previousSibling.contentEditable);
   };
   //  shouldComponentUpdate(nextProps, nextState){
   //   if(this.state.commentArray.length!==nextState.commentArray.length){
@@ -111,7 +147,19 @@ export class Post extends Component {
 
   // return true;
   //  }
+  handleUpdateComment = (e, i) => {
+    
+    if(this.commentRef.current.value!==""){
+      const newCom = [...this.state.commentArray];
+      newCom[i] = this.commentRef.current.value;
+    this.setState({ commentArray: newCom, comment: "" });
 
+    }
+    
+
+    // updatedArray[i]=this.commentRef.current.value;
+    // this.setState({commentArray:updatedArray});
+  };
   getSnapshotBeforeUpdate(prevProps, prevState) {
     // console.log("Prev:",prevState.commentArray.length);
     // console.log("Current:",this.state.commentArray.length);
@@ -121,6 +169,7 @@ export class Post extends Component {
 
     //     console.log("first")
     // return this.listRef.scrollHeight-this.listRef.scrollTop;
+
     return this.state.commentArray.length - prevState.commentArray.length;
   }
   // return null;
@@ -136,7 +185,7 @@ export class Post extends Component {
   //   return ({likeIcon:props.liked})
   // }
   componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log("Snapshot:", snapshot);
+    // console.log("Snapshot:", snapshot);
 
     // console.log("Listref:",this.listRef.current.lastChild)
     // if(snapshot!==null){
@@ -152,12 +201,7 @@ export class Post extends Component {
 
     {
       if (snapshot === 1) {
-        <Space>
-          {openNotificationWithIcon("success")}
-          {/* <Button onClick={() => openNotificationWithIcon('info')}>Info</Button>
-    <Button onClick={() => openNotificationWithIcon('warning')}>Warning</Button>
-    <Button onClick={() => openNotificationWithIcon('error')}>Error</Button> */}
-        </Space>;
+        <Space>{openNotificationWithIcon("success")}</Space>;
       } else if (snapshot === -1) {
         <Space>{openNotificationWithIcon("warning")}</Space>;
       }
@@ -237,17 +281,26 @@ export class Post extends Component {
                   return (
                     <p className="post-footer-commentbox">
                       <strong>{this.props.currentUser}</strong>
+
                       <p
-                        contentEditable={this.state.contentEditable}
+                        // contentEditable={this.state.contentEditable}
                         ref={this.editRef}
                       >
                         {post}
                       </p>
+
                       <button onClick={() => this.handleDeleteComment(index)}>
                         Delete
                       </button>
                       <button onClick={(e) => this.handleEdit(e, index)}>
                         Edit
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          this.handleUpdateComment(e, index);
+                        }}
+                      >
+                        Update
                       </button>
                     </p>
                   );
